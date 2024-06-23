@@ -5,27 +5,39 @@ import Form from "./components/Form";
 import FilterButton from "./components/FilterButton";
 
 function App(props) {
-  let [tasks, setTasks] = useState(props.tasks);
+  const [tasks, setTasks] = useState(props.tasks);
 
-  let tasksList = tasks?.map((task) => {
+  const tasksList = tasks?.map((task) => {
     return (
       <Todo
         id={task.id}
         name={task.name}
         completed={task.completed}
         key={task.id}
+        toggleTaskCompleted={toggleTaskCompleted}
       />
     );
   });
 
-  let tasksNoun = tasks.length !== 1 ? "tasks" : "task";
+  function toggleTaskCompleted(id) {
+    const updatedTasks = tasks?.map((task) => {
+      if (task.id === id) {
+        return { ...task, completed: !task.completed };
+      } else {
+        return task;
+      }
+    });
+    setTasks(updatedTasks);
+  }
 
-  let headingText = `${tasks.length} ${tasksNoun} remaining`;
+  const tasksNoun = tasks.length !== 1 ? "tasks" : "task";
 
-  let addTask = (name) => {
-    let newTask = { id: `todo-${nanoid()}`, name, completed: false };
+  const headingText = `${tasks.length} ${tasksNoun} remaining`;
+
+  function addTask(name) {
+    const newTask = { id: `todo-${nanoid()}`, name, completed: false };
     setTasks([...tasks, newTask]);
-  };
+  }
 
   return (
     <div className="todoapp stack-large">

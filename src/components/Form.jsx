@@ -1,17 +1,17 @@
 import { useState } from "react";
 
 function Form(props) {
-	let [name, setName] = useState("");
+	const [name, setName] = useState("");
 
-	let handleChange = (event) => {
+	function handleChange(event) {
 		setName(event.target.value);
-	};
+	}
 
-	let handleSubmit = (event) => {
+	function handleSubmit(event) {
 		event.preventDefault();
 		props.addTask(name);
 		setName("");
-	};
+	}
 
 	return (
 		<form onSubmit={handleSubmit}>
@@ -25,7 +25,6 @@ function Form(props) {
 				id="new-todo-input"
 				className="input input__lg"
 				name="text"
-				autoComplete="off"
 				value={name}
 				onChange={handleChange}
 			/>
