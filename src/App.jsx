@@ -15,6 +15,7 @@ function App(props) {
         completed={task.completed}
         key={task.id}
         toggleTaskCompleted={toggleTaskCompleted}
+        deleteTask={deleteTask}
       />
     );
   });
@@ -28,6 +29,13 @@ function App(props) {
       }
     });
     setTasks(updatedTasks);
+  }
+
+  function deleteTask(id) {
+    const remainingTasks = tasks?.filter((task) => {
+      return task.id !== id;
+    });
+    setTasks(remainingTasks);
   }
 
   const tasksNoun = tasks.length !== 1 ? "tasks" : "task";
