@@ -16,6 +16,7 @@ function App(props) {
         key={task.id}
         toggleTaskCompleted={toggleTaskCompleted}
         deleteTask={deleteTask}
+        editTask={editTask}
       />
     );
   });
@@ -36,6 +37,17 @@ function App(props) {
       return task.id !== id;
     });
     setTasks(remainingTasks);
+  }
+
+  function editTask(id, newName) {
+    const editedTaskList = tasks?.map((task) => {
+      if (task.id === id) {
+        return { ...task, name: newName };
+      } else {
+        return task;
+      }
+    });
+    setTasks(editedTaskList);
   }
 
   const tasksNoun = tasks.length !== 1 ? "tasks" : "task";
